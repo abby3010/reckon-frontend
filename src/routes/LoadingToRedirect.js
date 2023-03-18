@@ -15,7 +15,7 @@ const LoadingToRedirect = () => {
         return () => clearInterval(interval);
     }, [count, navigate])
     return (
-        <div className="container p-5 text-center">
+        <div className="container p-5 text-center text-white">
             <p>Redirecting you in {count} seconds</p>
         </div>
     );

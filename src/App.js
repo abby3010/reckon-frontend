@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Navbar from "./components/Navbar";
 import Login from "./pages/auth/Login";
 import { Route, Routes } from "react-router-dom";
 import Register from "./pages/auth/Register";
 import Forgot from "./pages/auth/Forgot";
-import WalletPage from './pages/WalletPage'
-import { useDispatch } from 'react-redux'
+import WalletPage from "./pages/WalletPage";
+import { useDispatch } from "react-redux";
 import { currentUser } from "./api/api";
 import { useEffect } from "react";
 import { loginSuccess } from "./reducers";
@@ -18,14 +19,15 @@ import UserWallet from "./pages/UserWallet";
 import Exchange from "./pages/Exchange";
 import Market from "./pages/Market";
 import MyNFTs from "./pages/MyNFTs";
+import BurnCoin from "./pages/BurnCoin";
+import GetACoin from "./pages/GetACoin";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const token = Cookies.get("jwt");
-    console.log(token)
-    token && getcurrentuser(token)
+    getcurrentuser(token)
       .then((res) => {
         dispatch(
           loginSuccess({
@@ -46,7 +48,6 @@ function App() {
     }
   };
 
-
   return (
     <div id="dark" className="App">
       <Navbar />
@@ -55,13 +56,58 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        {/* <Route path="/get-coin" element={< />} /> */}
+        <Route
+          path="/get-coin"
+          element={
+            <ProtectedRoute>
+              <GetACoin />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/forgot" element={<Forgot />} />
-        <Route path="/wallet" element={<ProtectedRoute><WalletPage /></ProtectedRoute>} />
-        <Route path="/add-nft" element={<ProtectedRoute><AddNFT /></ProtectedRoute>} />
-        <Route path="/user/wallet" element={<ProtectedRoute><UserWallet /></ProtectedRoute>} />
+        <Route
+          path="/wallet"
+          element={
+            <ProtectedRoute>
+              <WalletPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-nft"
+          element={
+            <ProtectedRoute>
+              <AddNFT />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/wallet"
+          element={
+            <ProtectedRoute>
+              <UserWallet />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/exchange" element={<Exchange />} />
         <Route path="/markets" element={<Market />} />
-        <Route path="/my-nfts" element={<ProtectedRoute><MyNFTs /></ProtectedRoute>} />
+        <Route
+          path="/my-nfts"
+          element={
+            <ProtectedRoute>
+              <MyNFTs />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/burn-coin"
+          element={
+            <ProtectedRoute>
+              <BurnCoin />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </div>

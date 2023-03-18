@@ -15,8 +15,8 @@ export default function Wallet() {
         const accounts = await window.ethereum.request({
             method: "eth_requestAccounts",
         });
-        console.log('im printing');
-        console.log(accounts);
+        // console.log('im printing');
+        // console.log(window.web3.currentProvider);
         if (accounts.length > 0) {
             const balance = await window.ethereum.request({
                 method: "eth_getBalance",

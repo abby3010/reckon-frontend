@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useListen } from "../../hooks/useListen";
@@ -43,6 +44,8 @@ export default function Register() {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
+
+    console.log(window.ethereum);
     if (accounts.length > 0) {
       const balance = await window.ethereum.request({
         method: "eth_getBalance",
@@ -116,9 +119,12 @@ export default function Register() {
           )}
 
           {showConnectButton && (
-            <button onClick={handleConnect} className="btn btn-primary">
-              {status === "loading" ? <Loading /> : "Connect Wallet"}
-            </button>
+            <>
+              <h4 style={{ textAlign: "center" }}>Continue As Trader </h4>
+              <button onClick={handleConnect} className="btn btn-primary">
+                {status === "loading" ? <Loading /> : "Connect Wallet"}
+              </button>
+            </>
           )}
 
           {showInstallMetamask && (
@@ -129,13 +135,14 @@ export default function Register() {
 
           {isConnected && (
             <div className="flex  w-full justify-center space-x-2">
+            <h2 className="text-white">Trader Login</h2>
               <button onClick={handleDisconnect} className="btn btn-primary">
                 Disconnect
               </button>
             </div>
           )}
           <form onSubmit={handleRegister}>
-            <span>Create Account</span>
+            <span>Continue As Minter</span>
             <div className="form-group">
               <input
                 type="text"

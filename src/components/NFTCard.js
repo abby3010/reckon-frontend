@@ -7,15 +7,16 @@ export default function NFTCard({nft}) {
                 <h2>
                     <img src={nft.image}
                         style={{
-                            width: '150px',
+                            width: '100px',
                             height: '100px',
                         }}
                         alt="LTC" />
                 </h2>
                 <span className='text-white'>{nft.name}</span>
                 <div className="markets-capital-details">
-                    <h4>{nft.price}</h4>
-                    <h3 className="red">{nft.shares}<i className="icon ion-md-arrow-down"></i></h3>
+                    <h4>{nft.price} per share</h4>
+                    <h3 className="green">{nft.shares} shares</h3>
+                    <h6 className="text-white">added by {nft.organization}</h6>
                 </div>
             </div>
         </div>

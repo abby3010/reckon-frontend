@@ -46,7 +46,7 @@ export default function Login() {
         }
       })
       .catch((e) => {
-        toast.error("Invalid Credentials");
+        console.log(e);
       });
   };
 

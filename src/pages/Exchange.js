@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
-import { Bar } from 'react-chartjs-2'
 import { Line } from 'react-chartjs-2'
+// eslint-disable-next-line no-unused-vars
 import { Chart as ChartJS } from 'chart.js/auto'
 
 export default function Exchange() {
@@ -9,112 +8,11 @@ export default function Exchange() {
         <div className="container-fluid mtb15 no-fluid">
             <div className="row sm-gutters">
                 <div className="col-md-9">
-                    <div className="market-trade">
-                        <ul className="nav nav-pills" role="tablist">
-                            <li className="nav-item">
-                                <a className="nav-link active" data-toggle="pill" href="#pills-trade-limit" role="tab"
-                                    aria-selected="true">Limit</a>
-                            </li>
-                        </ul>
-                        <div className="tab-content">
-                            <div className="tab-pane fade show active" id="pills-trade-limit" role="tabpanel">
-                                <div className="d-flex justify-content-between">
-                                    <div className="market-trade-buy">
-                                        <div className="input-group">
-                                            <input type="number" className="form-control" placeholder="Price" />
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">BTC</span>
-                                            </div>
-                                        </div>
-                                        <div className="input-group">
-                                            <input type="number" className="form-control" placeholder="Amount" />
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul className="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
-                                        </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
-                                        <button className="btn buy">Buy</button>
-                                    </div>
-                                    <div className="market-trade-sell">
-                                        <div className="input-group">
-                                            <input type="number" className="form-control" placeholder="Price" />
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">BTC</span>
-                                            </div>
-                                        </div>
-                                        <div className="input-group">
-                                            <input type="number" className="form-control" placeholder="Amount" />
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul className="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
-                                        </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
-                                        <button className="btn sell">Sell</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="market-trade-history" 
-                        style={{height: '300px', width: '100%'}}
+                    <div className="market-trade-history"
+                        style={{ height: '300px', width: '100%' }}
                     >
                         <h2 className="heading">Trade History</h2>
-                        {/* <Bar
-                            data={{
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                datasets: [
-                                    {
-                                        label: '# of Votes',
-                                        data: [12, 19, 3, 5, 2, 3],
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)',
-                                        ],
-                                        borderColor: [
-                                            'rgba(255, 99, 132, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(255, 159, 64, 1)',
-                                        ],
-                                        borderWidth: 1,
-                                    },
-                                ],
-                            }}
-                            // height={400}
-                            // width={600}
-                            options={{
-                                maintainAspectRatio: false,
-                                scales: {
-                                    y: {
-                                        beginAtZero: true,
-                                    },
-                                },
-                            }}
-                        /> */}
+
 
                         <Line
                             data={{
@@ -139,6 +37,51 @@ export default function Exchange() {
                             }}
                         />
                     </div>
+                    <div className="market-trade">
+                        <ul className="nav nav-pills" role="tablist">
+                            <li className="nav-item">
+                                <a className="nav-link active" data-toggle="pill" href="#pills-trade-limit" role="tab"
+                                    aria-selected="true">Limit</a>
+                            </li>
+                        </ul>
+                        <div className="tab-content">
+                            <div className="tab-pane fade show active" id="pills-trade-limit" role="tabpanel">
+                                <div className="d-flex justify-content-between">
+                                    <div className="market-trade-buy">
+                                        <div className="input-group">
+                                            <input type="number" className="form-control" placeholder="Price" />
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">AC</span>
+                                            </div>
+                                        </div>
+                                        <div className="input-group">
+                                            <input type="number" className="form-control" placeholder="Amount" />
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">SHARES</span>
+                                            </div>
+                                        </div>
+                                        <button className="btn buy">Buy</button>
+                                    </div>
+                                    <div className="market-trade-sell">
+                                        <div className="input-group">
+                                            <input type="number" className="form-control" placeholder="Price" />
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">AC</span>
+                                            </div>
+                                        </div>
+                                        <div className="input-group">
+                                            <input type="number" className="form-control" placeholder="Amount" />
+                                            <div className="input-group-append">
+                                                <span className="input-group-text">SHARES</span>
+                                            </div>
+                                        </div>
+                                        <button className="btn sell">Sell</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div className="col-md-3">
                     <div className="order-book mb15">
@@ -146,9 +89,9 @@ export default function Exchange() {
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th>Price(BTC)</th>
-                                    <th>Amount(ETH)</th>
-                                    <th>Total(ETH)</th>
+                                    <th>Price(AC)</th>
+                                    <th>Shares</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>

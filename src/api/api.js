@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export const baseURL = process.env.REACT_APP_API + "/api";
+export const baseURL2 = process.env.REACT_APP_API;
 
-const API = axios.create({ baseURL: baseURL, withCredentials: true });
+const API = axios.create({ baseURL: baseURL, baseURL2: baseURL2, withCredentials: true });
 
 /// Authentication routes
 /**
@@ -55,7 +56,33 @@ export const addNFT = (data) => axios({
 export const getApprovedNFTS = () =>
   API.get(baseURL + "/nft/apporved-nfts");
 
+/**
+ * This function will return a promise that will resolve to an array of objects that contain the user's
+ * NFTs.
+ * @param walletAddress - The wallet address of the user
+ * @returns A promise
+ */
 export const getUserNftsByWalletAddress = (walletAddress) => {
   return API.get(baseURL + "/nft/user-nfts/" + walletAddress);
+}
+
+/**
+ * This function will return the balance of the account passed to it.
+ * @param account - the account address
+ * @returns The response from the API call.
+ */
+export const getAcoinBalance = (account) => {
+  return API.post(baseURL2 + "/acoin/balanceOf", { account })
+}
+
+/**
+ * This function will take the account and numACoins parameters and send them to the API endpoint at
+ * baseURL2/acoin/burn.
+ * @param account - the account address
+ * @param numACoins - The number of ACoins to burn
+ * @returns The return value is the result of the API.post() function.
+ */
+export const burnCoin = (account, numACoins) => {
+  return API.post(baseURL2 + "/acoin/burn", { account, numACoins })
 }
 
