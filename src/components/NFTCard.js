@@ -15,7 +15,7 @@ export default function NFTCard({nft}) {
                 <span className='text-white'>{nft.name}</span>
                 <div className="markets-capital-details">
                     <h4>{nft.price} per share</h4>
-                    <h3 className="green">{nft.shares} shares</h3>
+                    <h3 className="green">{(parseInt(nft.shares) / 1000000).toFixed(2) + "\tlakhs"  } shares</h3>
                     <h6 className="text-white">added by {nft.organization}</h6>
                 </div>
             </div>

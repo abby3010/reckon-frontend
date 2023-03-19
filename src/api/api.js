@@ -3,7 +3,11 @@ import axios from "axios";
 export const baseURL = process.env.REACT_APP_API + "/api";
 export const baseURL2 = process.env.REACT_APP_API;
 
-const API = axios.create({ baseURL: baseURL, baseURL2: baseURL2, withCredentials: true });
+const API = axios.create({
+  baseURL: baseURL,
+  baseURL2: baseURL2,
+  withCredentials: true,
+});
 
 /// Authentication routes
 /**
@@ -13,7 +17,9 @@ const API = axios.create({ baseURL: baseURL, baseURL2: baseURL2, withCredentials
  * @returns The response from the API.
  */
 export const currentUser = async (authtoken) => {
-  return await API.get(baseURL + "/auth/current_user", { headers: { authtoken } });
+  return await API.get(baseURL + "/auth/current_user", {
+    headers: { authtoken },
+  });
 };
 
 /**
@@ -42,19 +48,19 @@ export const registerUser = async (data) => {
  * It takes a formData object and sends it to the server.
  * @param data - {
  */
-export const addNFT = (data) => axios({
-  method: "post",
-  url: baseURL + "/nft/add-nft",
-  body: data,
-  headers: { 'Content-Type': 'multipart/form-data' },
-  data: data
-});
+export const addNFT = (data) =>
+  axios({
+    method: "post",
+    url: baseURL + "/nft/add-nft",
+    body: data,
+    headers: { "Content-Type": "multipart/form-data" },
+    data: data,
+  });
 
 /**
  * This function will return a promise that will resolve to an array of approved NFTs.
  */
-export const getApprovedNFTS = () =>
-  API.get(baseURL + "/nft/apporved-nfts");
+export const getApprovedNFTS = () => API.get(baseURL + "/nft/apporved-nfts");
 
 /**
  * This function will return a promise that will resolve to an array of objects that contain the user's
@@ -64,16 +70,25 @@ export const getApprovedNFTS = () =>
  */
 export const getUserNftsByWalletAddress = (walletAddress) => {
   return API.get(baseURL + "/nft/user-nfts/" + walletAddress);
-}
+};
 
 /**
  * This function will return the balance of the account passed to it.
  * @param account - the account address
+ * @param caller - the caller address
  * @returns The response from the API call.
  */
 export const getAcoinBalance = (account) => {
-  return API.post(baseURL2 + "/acoin/balanceOf", { account })
-}
+  return API.post(baseURL2 + "/acoin/balanceOf", { account });
+};
+
+export const getInr = (numACoins) => {
+  return API.post(baseURL2 + "/acoin/exchange/inr-to-acoin", { numACoins });
+};
+
+export const acoinToInr = (account, numACoins, caller, email) => {
+  return API.post(baseURL2 + "/acoin/buy/inr", { account, numACoins, caller, email });
+};
 
 /**
  * This function will take the account and numACoins parameters and send them to the API endpoint at
@@ -83,6 +98,22 @@ export const getAcoinBalance = (account) => {
  * @returns The return value is the result of the API.post() function.
  */
 export const burnCoin = (account, numACoins) => {
-  return API.post(baseURL2 + "/acoin/burn", { account, numACoins })
-}
+  return API.post(baseURL2 + "/acoin/burn", {
+    account,
+    numACoins,
+    caller: account,
+  });
+};
 
+export const widthdrawInr = (account, numACoins, caller) => {
+  return API.post(baseURL2 + "/acoin/burn/inr", { account, numACoins, caller });
+};
+
+/**
+ * It takes a totalAmount as an argument and sends it to the backend to be processed by Stripe.
+ * @param totalAmount - The amount to be charged in cents.
+ * @returns The response from the server.
+ */
+export const payWithStripe = (totalAmount) => {
+  return API.post(baseURL + "/stripe/buy-with-stripe", { totalAmount });
+};

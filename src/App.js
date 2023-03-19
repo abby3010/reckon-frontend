@@ -19,8 +19,7 @@ import UserWallet from "./pages/UserWallet";
 import Exchange from "./pages/Exchange";
 import Market from "./pages/Market";
 import MyNFTs from "./pages/MyNFTs";
-import BurnCoin from "./pages/BurnCoin";
-import GetACoin from "./pages/GetACoin";
+import Payment from "./pages/payment/Payment";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,14 +56,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* <Route path="/get-coin" element={< />} /> */}
-        <Route
+        {/* <Route
           path="/get-coin"
           element={
             <ProtectedRoute>
               <GetACoin />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route path="/forgot" element={<Forgot />} />
         <Route
           path="/wallet"
@@ -90,7 +89,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/exchange" element={<Exchange />} />
+        <Route path="/exchange/:id" element={<Exchange />} />
         <Route path="/markets" element={<Market />} />
         <Route
           path="/my-nfts"
@@ -101,13 +100,21 @@ function App() {
           }
         />
         <Route
+          path="/buy-with-stripe/:amount/:acoin"
+          element={
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          }
+        />
+        {/* <Route
           path="/burn-coin"
           element={
             <ProtectedRoute>
               <BurnCoin />
             </ProtectedRoute>
           }
-        />
+        />*/}
       </Routes>
       <Footer />
     </div>

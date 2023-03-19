@@ -10,23 +10,111 @@ const GetACoin = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const [coin, setcoin] = React.useState("");
 
+  const checkTransactionconfirmation = (txhash) => {
+    let checkTransactionLoop = () => {
+      return window.ethereum
+        .request({ method: "eth_getTransactionReceipt", params: [txhash] })
+        .then(async (r) => {
+          if (r != null) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+              caller: user.user.walletAddress,
+            });
+
+            var requestOptions = {
+              method: "POST",
+              headers: myHeaders,
+              body: raw,
+              redirect: "follow",
+            };
+
+            let boolTransaction = await axios.post(
+              "http://localhost:8000/acoin/buyEvent",
+              requestOptions
+            )
+              .then((result) => {
+                const parsedResult = result.data;
+                console.log(parsedResult);
+
+                console.log(
+                  "The account is " +
+                    parsedResult["returnValues"]["_account"].toString()
+                );
+                console.log(
+                  "The caller is " +
+                    parsedResult["returnValues"]["_caller"].toString()
+                );
+                console.log(
+                  "The coins' value is " +
+                    parsedResult["returnValues"]["_numACoins"].toString()
+                );
+                console.log(
+                  "The message is " +
+                    parsedResult["returnValues"]["_message"].toString()
+                );
+                setcoin("");
+                toast.success("Coin Purchased");
+                navigate("/user/wallet");
+                return true;
+              })
+              .catch((error) => {
+                console.log("error", error);
+                return false;
+              });
+
+            if (boolTransaction) {
+              return "Transaction Confirmed";
+            } else return "Transaction Failed";
+          } else return checkTransactionLoop();
+        });
+    };
+
+    return checkTransactionLoop();
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     let data = {
       account: user.user.walletAddress,
       numACoins: coin,
+      caller: user.user.walletAddress,
     };
-    await axios.post("http://localhost:8000/acoin/buy", data).then((res) => {
-      console.log(res);
-      if (res.data.error) {
-        toast.error(res.data.error);
-      }
-      if (res.status === 200) {
-        setcoin("");
-        toast.success("Coin Purchased");
-        navigate("/user/wallet");
-      }
-    });
+    try {
+      await axios.post("http://localhost:8000/acoin/buy", data).then((res) => {
+        console.log(res);
+        // if (res.data.error) {
+        //   toast.error(res.data.error);
+        // }
+        
+          // let result = JSON.parse(res.data);
+          let result = res.data;
+          let transactionParam = {
+            from: user.user.walletAddress,
+            to: result.to,
+            data: result.data,
+            value: result.value,
+          };
+          console.log(transactionParam);
+          window.ethereum
+            .request({
+              method: "eth_sendTransaction",
+              params: [transactionParam],
+            })
+            .then((txhash) => {
+              console.log(txhash);
+              checkTransactionconfirmation(txhash).then((r) => alert(r));
+            });
+
+          // setcoin("");
+          // toast.success("Coin Purchased");
+          // navigate("/user/wallet");
+        
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (

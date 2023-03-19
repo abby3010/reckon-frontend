@@ -28,7 +28,7 @@ export default function Login() {
     loginUser(data.email, data.password)
       .then((res) => {
         // console.log(res);
-        if (res.status === 400) return toast.error("Invalid credentials");
+
         if (res.status === 200) {
           console.log(res);
           reduxDispatch(
@@ -45,8 +45,12 @@ export default function Login() {
           toast.error("Invalid Credentials");
         }
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((err) => {
+        if (err.response.status === 401) {
+          return toast.error("Invalid credentials");
+        } else if (err.response.status === 400) {
+          return toast.error("User does not exists. Please register");
+        }
       });
   };
 
